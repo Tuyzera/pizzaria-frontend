@@ -1,0 +1,36 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.inner{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin: calc(40vh - 5rem);
+
+    h1{
+        color: var(--white);
+    }
+
+    input{
+        height: 45px;
+        border-radius: 0.2rem;
+    }
+
+    button{
+        height: 45px;
+        border-radius: 0.2rem;
+        background-color: var(--green-900);
+    }
+    button a{
+        color: var(--black);
+        font-size: 1.2rem;
+    }
+
+}
+

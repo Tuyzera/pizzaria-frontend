@@ -1,0 +1,47 @@
+.headerContainer{
+    height: 5rem;
+
+}
+
+
+
+.headerInner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    height: 5rem;
+    padding: 2rem 2rem;
+
+
+}
+
+.headerInnerRight{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    color: var(--white);
+    
+
+    a{
+        transition: color 0.7s;
+        display: inline-block;
+        position: relative;
+    }
+    button{
+        background: none;
+        border: 0;
+        transition: transform 0.8s;
+    }
+
+    button:hover{
+        cursor: pointer;
+        transform: scale(1.2);
+        
+    }
+
+    a:hover{
+        color: var(--red-900);
+    }
+    
+}

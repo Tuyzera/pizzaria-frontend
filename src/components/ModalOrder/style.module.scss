@@ -1,0 +1,47 @@
+.container{
+    width: 620px;
+    background-color: var(--dark-700);
+    color: var(--white);
+
+}
+
+.container h2{
+    margin: 1rem 0;
+    
+}
+
+.table{
+    color: var(--green-900);
+}
+
+.amountTitle{
+    margin-bottom: 0.5rem ;
+
+    strong{
+        color: var(--green-900);
+    }
+}
+
+.items{
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0;
+}
+
+.button{
+    background: none;
+    border: 0;
+    background-color: var(--dark-900);
+    padding: 10px;
+    border-radius: 0.5rem;
+    width: 25%;
+    margin-top: 5rem;
+
+    a{
+        color: var(--green-900);
+        font-weight: bold;
+        font-size: 1.0rem;
+    }
+   
+}
+

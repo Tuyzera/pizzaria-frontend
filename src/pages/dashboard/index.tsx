@@ -6,7 +6,8 @@ import styles from './styles.module.scss'
 import Link from "next/link"
 import { setupAPIClient } from "@/services/api"
 import {useState} from 'react'
-
+import Modal from 'react-modal'
+import ModalOrder from "@/components/ModalOrder"
 interface HomeProps{
     orders: OrderProps[]
 }
@@ -19,9 +20,67 @@ type OrderProps = {
     name: string | null
 }
 
-export default function Dashboard({orders}: HomeProps){
+export type OrderItemProps = {
+    id: string,
+    amount: number,
+    order_id: string,
+    product_id: string
+    product:{
+        id: string,
+        name: string,
+        price: string,
+        description: string,
+        banner: string
+    },
+    order:{
+        id: string,
+        table: number,
+        status: boolean,
+        draft: boolean,
+        name: string | null
+    }
+}
 
+export default function Dashboard({orders}: HomeProps){
     const [orderList, setOrderList] = useState(orders || [])
+
+    const [modalItem, setModalItem] = useState<OrderItemProps[]>()
+    const [modalVisible, setModalVisible] = useState(false)
+
+
+    function handleCloseModal(){
+        setModalVisible(false)
+    }
+
+    async function handleRefreshPage() {
+  
+        const api = setupAPIClient()
+
+        const response = await api.get("/allOrders")
+
+        setOrderList(response.data)
+    }
+
+
+    async function handleOpenModalView(id: string){
+        
+        const apiClient = setupAPIClient()
+
+        const response = await apiClient.get("/orderDetail", {
+            params:{
+                order_id: id
+            }
+        })
+
+        console.log(response)
+
+        setModalItem(response.data)
+        setModalVisible(true)
+    }
+
+    Modal.setAppElement('#__next')
+
+    
     return(
         <>
             <Head> 
@@ -32,8 +91,8 @@ export default function Dashboard({orders}: HomeProps){
             <div className={styles.container}>
                 <div className={styles.title}>
                     <h1>Pedidos</h1>
-                    <button>
-                        <FiRefreshCcw size={24}/>
+                    <button onClick={handleRefreshPage}>
+                        <FiRefreshCcw size={24} />
                     </button>
                 </div>
                     
@@ -42,7 +101,7 @@ export default function Dashboard({orders}: HomeProps){
                     {orderList.map((item)=> (
                         
                             <section key={item.id} className={styles.orderitem}>
-                                <button>
+                                <button onClick={() => handleOpenModalView(item.id)}>
                                     <div className={styles.tag}></div>
                                     <span>Mesa: {item.table}</span>
                                 </button>
@@ -54,6 +113,9 @@ export default function Dashboard({orders}: HomeProps){
                 
                 
             </div>
+            {modalVisible && (
+                <ModalOrder isOpen={modalVisible} onRequestClose={handleCloseModal} order={modalItem}/>
+            )}
             
         </>
         
